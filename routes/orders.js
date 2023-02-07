@@ -6,14 +6,14 @@ var router = express.Router();
 const orderCollection = database.collection("orders");
 
 //add order
-app.post('/', async (request, response) => {
+router.post('/', async (request, response) => {
     const order = request.body;
     const result = await orderCollection.insertOne(order);
     response.send(result);
 });
 
 // get user's order list
-app.get('/:email', async (request, response) => {
+router.get('/:email', async (request, response) => {
     const email = request.params.email;
     const query = { email: email };
     const cursor = orderCollection.find(query);
@@ -23,7 +23,7 @@ app.get('/:email', async (request, response) => {
 });
 
 // get all order list
-app.get('/', async (request, response) => {
+router.get('/', async (request, response) => {
     const cursor = orderCollection.find({});
     const myOrders = await cursor.toArray();
     response.send(myOrders);
@@ -31,7 +31,7 @@ app.get('/', async (request, response) => {
 
 
 // delete specific order
-app.delete('/:id', async (request, response) => {
+router.delete('/:id', async (request, response) => {
     const id = request.params.id;
     const query = { _id: ObjectId(id) };
     const result = await orderCollection.deleteOne(query);
