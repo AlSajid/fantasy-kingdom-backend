@@ -3,38 +3,38 @@ import database from '../db/mongodb.js'
 var router = express.Router();
 
 //collections
-const orderCollection = database.collection("orders");
+const bookingsCollection = database.collection("bookings");
 
-//add order
+//add booking
 router.post('/', async (request, response) => {
-    const order = request.body;
-    const result = await orderCollection.insertOne(order);
+    const booking = request.body;
+    const result = await bookingsCollection.insertOne(booking);
     response.send(result);
 });
 
-// get user's order list
+// get user's booking list
 router.get('/:email', async (request, response) => {
     const email = request.params.email;
     const query = { email: email };
-    const cursor = orderCollection.find(query);
-    const myOrders = await cursor.toArray();
-    response.send(myOrders);
+    const cursor = bookingsCollection.find(query);
+    const mybookings = await cursor.toArray();
+    response.send(mybookings);
 
 });
 
-// get all order list
+// get all booking list
 router.get('/', async (request, response) => {
-    const cursor = orderCollection.find({});
-    const myOrders = await cursor.toArray();
-    response.send(myOrders);
+    const cursor = bookingsCollection.find({});
+    const mybookings = await cursor.toArray();
+    response.send(mybookings);
 });
 
 
-// delete specific order
+// delete specific booking
 router.delete('/:id', async (request, response) => {
     const id = request.params.id;
     const query = { _id: ObjectId(id) };
-    const result = await orderCollection.deleteOne(query);
+    const result = await bookingsCollection.deleteOne(query);
     response.json(result);
 })
 

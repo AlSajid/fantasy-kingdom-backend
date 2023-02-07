@@ -25,10 +25,12 @@ app.use(express.static(path.join(__dirname, 'public')));
 //routers
 import indexRouter from './routes/index.js';
 import servicesRouter from './routes/services.js';
+import bookingRouter from './routes/bookings.js';
 
 // mount routers
 app.use('/', indexRouter);
 app.use('/services', servicesRouter);
+app.use('/bookings', bookingRouter);
 
 export default app;
 
